@@ -1,0 +1,108 @@
+%!TEX output_directory = .aux
+%!TEX copy_output_on_build(true)
+
+\documentclass[11pt,a4paper, titlepage]{article}
+\usepackage[a4paper, total={6.5in, 8in}]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+\title{Topology and Groups Notes}
+\author{Giannis Tyrovolas}
+\date{December 29, 2020}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem*{remark}{Remark}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{idea}{Idea}
+
+\begin{document}
+
+\maketitle
+
+\section{Simplicial Approximation Theorem}
+
+The simplicial approximation theorem has lots of steps. Which is why I'm going to lay it all out with my comments here.
+
+First, we'll define the star of a point in a simplicial complex.
+
+\begin{definition}[Star]
+Let $x \in \abs{K}$ then the star of $x$ in $\abs{K}$ is the union of all open simplices that contain $x$, i.e:
+
+\[
+	st_K(x) = \bigcup\{\text{inside of } \sigma | \sigma \text{ is a simplex of } \abs{K}, x \in \sigma\}
+\]
+\end{definition}
+
+\begin{lemma}
+The star of a point is open in the topological realisation of the simplex.
+\end{lemma}
+
+\emph{Note:} We can't prove this as a union of open sets as the inside of a simplex need not be open.
+
+Now we will use simplicial maps to induce maps which are homotopic to continuous maps.
+
+\begin{theorem}
+Let $f \colon \abs{K} \longrightarrow \abs{L}$ continuous. Suppose that for all $v \in V(K)$ there is a vertext $g(v) \in L$ such that:
+
+\[
+	f(st_K(v)) \subseteq st_L(g(v))
+\]
+
+Then $g \colon K \longrightarrow L$ is a simplicial map and for a suitable $\abs{g} \colon \abs{K} \longrightarrow \abs{L}$, $\abs{g} \simeq f$
+\end{theorem}
+ 
+\begin{proof}
+ Let $x \in K$ be inside $\sigma = (v_0, \ldots, v_n)$ with
+ \begin{align*}
+ &&  x &= \sum \lambda_i v_i  \\
+ &\implies& x &\in st_K(v_i) \text{ for each } i = 0,\ldots, n  \\
+ &\implies& f(x) &\in st_L(g(v_i)) \text{ by hypothesis} \\ 
+ &\implies& f(x) &\in \text{ inside of } (g(v_0), \ldots, g(v_n), \ldots)
+ \end{align*}
+
+ but $(g(v_0), \ldots, g(v_n))$ is itself a simplex of $L$. Now define $\abs{g}(x) = \sum \lambda_i g(v_i)$
+
+ We claim that $\abs{g}$ is continuous and homotopic to $f$ by the straight line homotopy.
+\end{proof} 
+
+This is the bulk of the theorem, but we need some more ingredients.
+
+\begin{definition}[Standard metric]
+The standard metric on a simplicial complex $\abs{K}$ is defined as:
+\[
+	d(\sum \lambda_i v_i, \sum \mu_i v_i) = \sum \abs{\lambda_i - \mu_i}
+\]
+\end{definition}
+
+\begin{definition}[Coarsness]
+The coarsness of a subdivision $K'$ of $K$ is:
+\[
+	\sup \{d_K(x,y) \colon x, y \in st_{K'} | v \in V(K')\}
+\]
+\end{definition}
+
+The coarsness is a measure of the biggest simplex in the subdivision with respect to the distance in the \emph{original} simplex.
+
+We claim that every finite simplicial complex can be subvided in arbitrarily small subvisions.
+
+\begin{lemma}[Legesgue Covering Lemma]
+For a compact topological metric space $X$ and any open cover $\mathcal{U}$ there exists a $\delta > 0$ such that any subset with diameter less than $\delta$ is entirely contained in an element of $\mathcal{U}$.
+\end{lemma}
+
+
+
+
+\end{document}
+
